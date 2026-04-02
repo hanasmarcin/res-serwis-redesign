@@ -6,39 +6,37 @@
 
 @layer base {
   :root {
-    --background: 210 20% 98%;
-    --foreground: 210 40% 11%;
+    --background: 35 30% 97%;
+    --foreground: 210 15% 20%;
 
     --card: 0 0% 100%;
-    --card-foreground: 210 40% 11%;
+    --card-foreground: 210 15% 20%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 210 40% 11%;
+    --popover-foreground: 210 15% 20%;
 
-    --primary: 152 60% 36%;
+    --primary: 18 85% 50%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 210 25% 93%;
-    --secondary-foreground: 210 40% 11%;
+    --secondary: 210 12% 40%;
+    --secondary-foreground: 0 0% 100%;
 
-    --muted: 210 20% 96%;
-    --muted-foreground: 210 15% 46%;
+    --muted: 30 15% 93%;
+    --muted-foreground: 210 10% 46%;
 
-    --accent: 38 92% 50%;
+    --accent: 8 70% 45%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 210 20% 90%;
-    --input: 210 20% 90%;
-    --ring: 152 60% 36%;
+    --border: 30 15% 88%;
+    --input: 30 15% 88%;
+    --ring: 18 85% 50%;
 
-    --radius: 0.75rem;
+    --radius: 0.5rem;
 
-    --hero-overlay: linear-gradient(135deg, hsla(210, 40%, 8%, 0.85), hsla(152, 40%, 15%, 0.7));
-    --gradient-primary: linear-gradient(135deg, hsl(152, 60%, 36%), hsl(152, 50%, 28%));
-    --gradient-warm: linear-gradient(135deg, hsl(38, 92%, 50%), hsl(25, 95%, 53%));
+    --hero-overlay: linear-gradient(135deg, hsla(210, 20%, 15%, 0.85), hsla(18, 40%, 20%, 0.7));
 
     --font-heading: 'Space Grotesk', sans-serif;
     --font-body: 'DM Sans', sans-serif;
@@ -54,25 +52,25 @@
   }
 
   .dark {
-    --background: 210 40% 6%;
-    --foreground: 210 20% 96%;
-    --card: 210 35% 10%;
-    --card-foreground: 210 20% 96%;
-    --popover: 210 35% 10%;
-    --popover-foreground: 210 20% 96%;
-    --primary: 152 60% 42%;
+    --background: 210 20% 8%;
+    --foreground: 30 15% 93%;
+    --card: 210 18% 12%;
+    --card-foreground: 30 15% 93%;
+    --popover: 210 18% 12%;
+    --popover-foreground: 30 15% 93%;
+    --primary: 18 85% 50%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 210 30% 15%;
-    --secondary-foreground: 210 20% 96%;
-    --muted: 210 30% 15%;
-    --muted-foreground: 210 15% 60%;
-    --accent: 38 92% 50%;
+    --secondary: 210 12% 30%;
+    --secondary-foreground: 30 15% 93%;
+    --muted: 210 15% 16%;
+    --muted-foreground: 210 10% 60%;
+    --accent: 8 70% 45%;
     --accent-foreground: 0 0% 100%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
-    --border: 210 30% 18%;
-    --input: 210 30% 18%;
-    --ring: 152 60% 42%;
+    --border: 210 15% 20%;
+    --input: 210 15% 20%;
+    --ring: 18 85% 50%;
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
@@ -96,14 +94,5 @@
 
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-heading);
-  }
-}
-
-@layer utilities {
-  .text-gradient-primary {
-    background: var(--gradient-primary);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
   }
 }
