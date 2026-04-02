@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Menu, X, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import logo from "@/assets/logo.jpg";
 
 const navLinks = [
   { label: "Strona główna", href: "#home" },
@@ -13,11 +14,10 @@ const Navbar = () => {
   const [open, setOpen] = useState(false);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border/50">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-card/95 backdrop-blur-lg border-b border-border shadow-sm">
       <div className="container flex items-center justify-between h-16 md:h-20">
-        <a href="#home" className="font-heading text-xl md:text-2xl font-bold tracking-tight">
-          <span className="text-primary">RES</span>
-          <span className="text-foreground">-SERWIS</span>
+        <a href="#home">
+          <img src={logo} alt="RES-SERWIS" className="h-10 md:h-12 w-auto" />
         </a>
 
         {/* Desktop */}
@@ -26,7 +26,7 @@ const Navbar = () => {
             <a
               key={link.href}
               href={link.href}
-              className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+              className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
             >
               {link.label}
             </a>
@@ -47,13 +47,13 @@ const Navbar = () => {
 
       {/* Mobile menu */}
       {open && (
-        <div className="md:hidden bg-background border-b border-border pb-4">
+        <div className="md:hidden bg-card border-b border-border pb-4">
           {navLinks.map((link) => (
             <a
               key={link.href}
               href={link.href}
               onClick={() => setOpen(false)}
-              className="block px-6 py-3 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+              className="block px-6 py-3 text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
             >
               {link.label}
             </a>
