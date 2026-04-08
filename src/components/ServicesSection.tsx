@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
-import { Wrench, GraduationCap, Settings, Package, ClipboardCheck } from "lucide-react";
+import { Wrench, GraduationCap, Settings, Package, ClipboardCheck, Clock3, ArrowUpRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const services = [
   {
@@ -32,6 +33,16 @@ const services = [
     description:
       "Dostarczamy oryginalne części zamienne do urządzeń Viessmann, Dimplex i innych czołowych producentów systemów OZE.",
   },
+  {
+    icon: Clock3,
+    title: "Serwis 24h Viessmann",
+    eyebrow: "Współpraca serwisowa",
+    description:
+      "RES-SERWIS realizuje zlecenia serwisowe dla marki Viessmann. Zgłoszenia całodobowego serwisu urządzeń grzewczych należy kierować przez oficjalny serwis Viessmann.",
+    href: "https://viessmann-serwis.pl",
+    cta: "Przejdź do serwisu",
+    featured: true,
+  },
 ];
 
 const ServicesSection = () => {
@@ -58,26 +69,53 @@ const ServicesSection = () => {
           </p>
         </motion.div>
 
-        <div className="grid sm:grid-cols-2 xl:grid-cols-5 gap-6">
+        <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-6">
           {services.map((service, i) => (
             <motion.div
               key={service.title}
-              className="group"
+              className="group h-full"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
             >
-              <div className="h-full rounded-lg border border-border bg-card p-6 shadow-sm transition-all duration-200 group-hover:-translate-y-1 group-hover:shadow-lg">
-                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4 transition-colors group-hover:bg-primary/20">
-                  <service.icon className="w-6 h-6 text-primary" />
-                </div>
-                <h3 className="font-heading text-lg font-semibold text-foreground mb-2">
+              <div
+                className={`flex h-full flex-col rounded-lg border bg-card p-6 shadow-sm transition-all duration-200 group-hover:-translate-y-1 group-hover:shadow-lg ${
+                  service.featured
+                    ? "border-2 border-primary/60 shadow-[0_18px_40px_-30px_rgba(234,88,12,0.22)]"
+                    : "border-border"
+                }`}
+              >
+                {!service.featured && (
+                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 transition-colors group-hover:bg-primary/20">
+                    <service.icon className="w-6 h-6 text-primary" />
+                  </div>
+                )}
+                {service.featured && service.eyebrow && (
+                  <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-primary/80">
+                    {service.eyebrow}
+                  </p>
+                )}
+                <h3 className="mb-2 font-heading text-lg font-semibold text-foreground">
                   {service.title}
                 </h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">
+                <p className="text-sm leading-relaxed text-muted-foreground">
                   {service.description}
                 </p>
+                {service.href && service.cta && (
+                  <div className="mt-auto pt-5">
+                    <Button
+                      asChild
+                      size="sm"
+                      className={service.featured ? "bg-primary text-primary-foreground hover:bg-primary/90" : ""}
+                    >
+                      <a href={service.href} target="_blank" rel="noopener noreferrer">
+                        {service.cta}
+                        <ArrowUpRight className="ml-2 h-4 w-4" />
+                      </a>
+                    </Button>
+                  </div>
+                )}
               </div>
             </motion.div>
           ))}

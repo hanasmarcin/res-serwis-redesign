@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Phone, Mail, MapPin, Building2, Landmark } from "lucide-react";
+import { Phone, Mail, MapPin } from "lucide-react";
 
 const contactItems = [
   {
@@ -72,54 +72,6 @@ const ContactSection = () => {
             ))}
           </div>
 
-          <div className="mt-12 grid lg:grid-cols-2 gap-6">
-            <motion.div
-              className="group"
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.45, delay: 0.35 }}
-            >
-              <div className="h-full rounded-lg border border-border bg-card p-8 shadow-sm transition-all duration-200 group-hover:-translate-y-1 group-hover:border-primary/30 group-hover:shadow-lg">
-                <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-5 transition-colors group-hover:bg-primary/20">
-                  <Building2 className="w-6 h-6 text-primary" />
-                </div>
-                <h3 className="font-heading text-xl font-semibold text-foreground mb-4">
-                  Dane firmy
-                </h3>
-                <div className="space-y-2 text-sm text-muted-foreground">
-                  <p className="font-semibold text-foreground">RES-SERWIS Odnawialne Źródła Energii</p>
-                  <p>Właściciel: Hanas Dariusz</p>
-                  <p>NIP: 739-143-04-34</p>
-                  <p>REGON: 280185471</p>
-                </div>
-              </div>
-            </motion.div>
-
-            <motion.div
-              className="group"
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.45, delay: 0.43 }}
-            >
-              <div className="h-full rounded-lg border border-border bg-card p-8 shadow-sm transition-all duration-200 group-hover:-translate-y-1 group-hover:border-primary/30 group-hover:shadow-lg">
-                <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-5 transition-colors group-hover:bg-primary/20">
-                  <Landmark className="w-6 h-6 text-primary" />
-                </div>
-                <h3 className="font-heading text-xl font-semibold text-foreground mb-4">
-                  Rachunek bankowy
-                </h3>
-                <div className="space-y-2 text-sm text-muted-foreground">
-                  <p className="font-semibold text-foreground">Bank Ochrony Środowiska S.A.</p>
-                  <p>03 1540 1072 2001 5015 1097 0001</p>
-                  <p className="pt-2">
-                    W sprawach rozliczeń lub danych formalnych zachęcamy również do kontaktu mailowego.
-                  </p>
-                </div>
-              </div>
-            </motion.div>
-          </div>
         </div>
       </div>
     </section>
