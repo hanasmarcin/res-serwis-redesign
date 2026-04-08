@@ -2,14 +2,26 @@ import { motion } from "framer-motion";
 import { Shield, Award, Users } from "lucide-react";
 
 const stats = [
-  { icon: Shield, value: "15+", label: "Lat doświadczenia" },
-  { icon: Award, value: "500+", label: "Zrealizowanych projektów" },
-  { icon: Users, value: "100%", label: "Zadowolonych klientów" },
+  {
+    icon: Shield,
+    value: "Praktyka",
+    label: "Wieloletnia praktyka w obsłudze i serwisie urządzeń OZE",
+  },
+  {
+    icon: Award,
+    value: "Doradztwo",
+    label: "Techniczne wsparcie dla inwestorów, projektantów i wykonawców",
+  },
+  {
+    icon: Users,
+    value: "Wsparcie",
+    label: "Rzetelna pomoc na każdym etapie eksploatacji instalacji",
+  },
 ];
 
 const AboutSection = () => {
   return (
-    <section id="about" className="py-20 md:py-32 bg-background">
+    <section id="about" className="scroll-mt-24 md:scroll-mt-28 py-20 md:py-32 bg-background">
       <div className="container px-4">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Text */}
@@ -23,17 +35,24 @@ const AboutSection = () => {
               O firmie
             </p>
             <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-6 leading-tight">
-              Renewable Energy Systems — Twój partner w OZE
+              Doświadczenie i wsparcie techniczne w obszarze OZE
             </h2>
             <p className="text-muted-foreground leading-relaxed mb-4">
-              RES-SERWIS to firma specjalizująca się w obsłudze technicznej, serwisie i doradztwie 
-              w zakresie urządzeń wykorzystujących odnawialne źródła energii. Zajmujemy się pompami ciepła, 
-              kolektorami słonecznymi, ogniwami fotowoltaicznymi oraz kotłami na biomasę.
+              Renewable Energy Systems, w skrócie RES, oznacza systemy wykorzystujące odnawialne źródła
+              energii. Impulsem do powstania firmy było rosnące zainteresowanie klientów poszukujących
+              tańszych i ekologicznych rozwiązań przygotowania ciepłej wody, ogrzewania oraz chłodzenia
+              budynków.
+            </p>
+            <p className="text-muted-foreground leading-relaxed mb-4">
+              Rosnące ceny nośników energii oraz proekologiczne podejście inwestorów sprawiają, że stale
+              wzrasta liczba użytkowników takich urządzeń jak pompy ciepła, kolektory słoneczne, ogniwa
+              fotowoltaiczne czy kotły na biomasę. Właśnie w tym obszarze zapewniamy naszym klientom
+              fachowe wsparcie techniczne, serwis i doradztwo.
             </p>
             <p className="text-muted-foreground leading-relaxed">
-              Wieloletnie doświadczenie praktyczne, kompetentni pracownicy oraz stały kontakt z ośrodkami 
-              naukowymi i czołowymi producentami urządzeń pozwalają zaoferować naszym klientom nowoczesne 
-              rozwiązania techniczne o wysokiej jakości i dużej sprawności.
+              Wieloletnie doświadczenie praktyczne, kompetentni pracownicy oraz stały kontakt z ośrodkami
+              naukowymi i czołowymi producentami urządzeń pozwalają nam oferować nowoczesne rozwiązania
+              techniczne o wysokiej jakości, dużej sprawności i realnej wartości użytkowej.
             </p>
           </motion.div>
 
@@ -45,15 +64,21 @@ const AboutSection = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            {stats.map((stat) => (
-              <div
+            {stats.map((stat, i) => (
+              <motion.div
                 key={stat.label}
-                className="bg-card rounded-lg p-6 text-center border border-border shadow-sm hover:shadow-md transition-shadow"
+                className="group"
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.45, delay: 0.15 + i * 0.08 }}
               >
-                <stat.icon className="w-8 h-8 text-primary mx-auto mb-3" />
-                <p className="font-heading text-3xl font-bold text-foreground mb-1">{stat.value}</p>
-                <p className="text-sm text-muted-foreground">{stat.label}</p>
-              </div>
+                <div className="h-full rounded-lg border border-border bg-card p-6 text-center shadow-sm transition-all duration-200 group-hover:-translate-y-1 group-hover:shadow-lg">
+                  <stat.icon className="w-8 h-8 text-primary mx-auto mb-3" />
+                  <p className="font-heading text-lg md:text-xl font-bold text-foreground mb-2">{stat.value}</p>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{stat.label}</p>
+                </div>
+              </motion.div>
             ))}
           </motion.div>
         </div>

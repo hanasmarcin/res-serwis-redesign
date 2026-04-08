@@ -4,8 +4,11 @@ import AboutSection from "@/components/AboutSection";
 import ServicesSection from "@/components/ServicesSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
+import { useHashScroll } from "@/hooks/use-hash-scroll";
 
 const Index = () => {
+  useHashScroll();
+
   return (
     <div className="min-h-screen">
       <Navbar />

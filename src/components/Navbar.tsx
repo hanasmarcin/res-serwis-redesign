@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Menu, X, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import logo from "@/assets/logo.jpg";
+import ScrollLink from "@/components/ScrollLink";
 
 const navLinks = [
   { label: "Strona główna", href: "#home" },
@@ -15,28 +16,36 @@ const Navbar = () => {
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-card/95 backdrop-blur-lg border-b border-border shadow-sm">
-      <div className="container flex items-center justify-between h-16 md:h-20">
-        <a href="#home">
-          <img src={logo} alt="RES-SERWIS" className="h-10 md:h-12 w-auto" />
-        </a>
+      <div data-site-header-offset className="container flex items-center justify-between h-16 md:h-20">
+        <ScrollLink href="#home" className="flex items-center gap-3 shrink-0">
+          <img src={logo} alt="RES-SERWIS" className="h-10 md:h-12 w-auto shrink-0" />
+          <div className="hidden lg:block shrink-0">
+            <p className="font-heading text-xl font-bold text-foreground leading-none tracking-[0.06em] whitespace-nowrap">
+              RES-SERWIS
+            </p>
+            <p className="mt-1 text-[11px] uppercase tracking-[0.16em] text-muted-foreground whitespace-nowrap">
+              Odnawialne Źródła Energii
+            </p>
+          </div>
+        </ScrollLink>
 
         {/* Desktop */}
-        <div className="hidden md:flex items-center gap-8">
+        <div className="hidden md:flex items-center gap-6 lg:gap-8">
           {navLinks.map((link) => (
-            <a
+            <ScrollLink
               key={link.href}
               href={link.href}
               className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
             >
               {link.label}
-            </a>
+            </ScrollLink>
           ))}
-          <a href="tel:+48502328185">
-            <Button size="sm" className="gap-2 bg-primary text-primary-foreground hover:bg-primary/90">
+          <Button asChild size="sm" className="gap-2 bg-primary text-primary-foreground hover:bg-primary/90">
+            <a href="tel:+48502328185">
               <Phone className="w-4 h-4" />
               502 328 185
-            </Button>
-          </a>
+            </a>
+          </Button>
         </div>
 
         {/* Mobile toggle */}
@@ -49,22 +58,22 @@ const Navbar = () => {
       {open && (
         <div className="md:hidden bg-card border-b border-border pb-4">
           {navLinks.map((link) => (
-            <a
+            <ScrollLink
               key={link.href}
               href={link.href}
-              onClick={() => setOpen(false)}
+              onNavigate={() => setOpen(false)}
               className="block px-6 py-3 text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
             >
               {link.label}
-            </a>
+            </ScrollLink>
           ))}
           <div className="px-6 pt-2">
-            <a href="tel:+48502328185">
-              <Button size="sm" className="w-full gap-2 bg-primary text-primary-foreground">
+            <Button asChild size="sm" className="w-full gap-2 bg-primary text-primary-foreground">
+              <a href="tel:+48502328185">
                 <Phone className="w-4 h-4" />
                 502 328 185
-              </Button>
-            </a>
+              </a>
+            </Button>
           </div>
         </div>
       )}
