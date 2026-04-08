@@ -34,7 +34,7 @@ const HeroSection = () => {
               </Button>
             </a>
             <a href="#services">
-              <Button size="lg" variant="outline" className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 text-base px-8">
+              <Button size="lg" variant="outline" className="border-white bg-white/15 text-white hover:bg-white/25 backdrop-blur-sm text-base px-8 font-semibold">
                 Nasza oferta
               </Button>
             </a>
