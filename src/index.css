@@ -17,6 +17,7 @@
 
     --primary: 18 85% 50%;
     --primary-foreground: 0 0% 100%;
+    --primary-on-dark: 18 100% 80%;
 
     --secondary: 210 12% 40%;
     --secondary-foreground: 0 0% 100%;
@@ -60,6 +61,7 @@
     --popover-foreground: 30 15% 93%;
     --primary: 18 85% 50%;
     --primary-foreground: 0 0% 100%;
+    --primary-on-dark: 18 100% 80%;
     --secondary: 210 12% 30%;
     --secondary-foreground: 30 15% 93%;
     --muted: 210 15% 16%;
@@ -79,6 +81,18 @@
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer components {
+  .hero-service-image {
+    object-position: clamp(23%, calc(2.3% + 6.46vw), 85%) center;
+  }
+
+  @media (min-aspect-ratio: 4 / 3) {
+    .hero-service-image {
+      object-position: clamp(35%, calc(4% + 8vw), 90%) center;
+    }
   }
 }
 

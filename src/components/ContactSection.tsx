@@ -41,7 +41,7 @@ const ContactSection = () => {
           </h2>
           <p className="max-w-2xl mx-auto mt-5 text-muted-foreground leading-relaxed">
             Jeśli potrzebujesz serwisu, wsparcia technicznego, doradztwa lub informacji o urządzeniach OZE,
-            zapraszamy do kontaktu. Odpowiadamy rzeczowo, konkretnie i z nastawieniem na trwałe rozwiązania.
+            zapraszamy do kontaktu.
           </p>
         </motion.div>
 

@@ -11,7 +11,7 @@ const HeroSection = () => {
         <img
           src={heroBg}
           alt="Serwisant RES-SERWIS podczas pracy przy kolektorach słonecznych"
-          className="h-full w-full object-cover object-[42%_center] md:object-center"
+          className="hero-service-image h-full w-full object-cover"
           width={1600}
           height={900}
           loading="eager"
@@ -34,9 +34,8 @@ const HeroSection = () => {
             Doświadczony <span className="text-primary">serwis OZE</span>
           </h1>
           <p className="font-body text-lg md:text-xl max-w-3xl mx-auto md:mx-0 mb-6 leading-relaxed text-white/85">
-            Specjalizujemy się w serwisie pomp ciepła, kolektorów słonecznych, instalacji fotowoltaicznych
-            oraz urządzeń na biomasę. Łączymy wieloletnią praktykę, rzetelne doradztwo i sprawdzone
-            rozwiązania techniczne dla budynków mieszkalnych i użytkowych.
+            Serwisujemy pompy ciepła, kolektory słoneczne, instalacje fotowoltaiczne oraz urządzenia
+            na biomasę. Zapewniamy także doradztwo techniczne, nadzór i pierwsze uruchomienia instalacji.
           </p>
           <p className="font-body text-sm md:text-base uppercase tracking-[0.18em] max-w-3xl mx-auto md:mx-0 mb-10 text-white/72">
             OLSZTYN I OKOLICE • SERWIS, DORADZTWO, NADZÓR, URUCHOMIENIA

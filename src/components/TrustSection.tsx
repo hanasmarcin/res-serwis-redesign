@@ -1,28 +1,7 @@
 import { motion } from "framer-motion";
-import { ArrowRight, Award, Gauge, Wrench } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import ScrollLink from "@/components/ScrollLink";
-import combustionAnalysis from "@/assets/work/combustion-analysis.jpg";
-
-const qualifications = [
-  {
-    icon: Award,
-    title: "Kwalifikacje serwisowe",
-    description:
-      "Wiedza potwierdzana szkoleniami i dokumentacją kwalifikacji z zakresu urządzeń grzewczych oraz systemów OZE.",
-  },
-  {
-    icon: Gauge,
-    title: "Diagnostyka i pomiary",
-    description:
-      "Zaplecze pomiarowe i kontrolne potrzebne do oceny parametrów pracy, spalania oraz bezpieczeństwa instalacji.",
-  },
-  {
-    icon: Wrench,
-    title: "Praktyka instalacyjna",
-    description:
-      "Doświadczenie w serwisie, pierwszych uruchomieniach, nadzorze montażu i rozwiązywaniu nietypowych problemów.",
-  },
-];
+import technicianMaintenance from "@/assets/work/technician-maintenance.jpg";
 
 const references = [
   { name: "Instalex", detail: "firma instalacyjna • Ostróda" },
@@ -49,59 +28,41 @@ const TrustSection = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <p className="mb-3 font-heading text-sm font-semibold uppercase tracking-[0.15em] text-primary">
+            <p className="mb-3 font-heading text-sm font-semibold uppercase tracking-[0.15em] text-primary-on-dark">
               Kwalifikacje i doświadczenie
             </p>
             <h2 className="font-heading text-3xl font-bold leading-tight md:text-4xl">
-              Kompetencje techniczne potwierdzone praktyką
+              Kwalifikacje, pomiary i praktyka serwisowa
             </h2>
             <p className="mt-5 leading-relaxed text-white/65">
-              Dobry serwis to nie tylko naprawa pojedynczego urządzenia. To umiejętność oceny całej instalacji,
-              wykonania właściwych pomiarów i dobrania rozwiązania, które pozostanie bezpieczne w eksploatacji.
+              Wiedzę potwierdzamy szkoleniami i dokumentacją kwalifikacji z zakresu urządzeń grzewczych
+              oraz systemów OZE. Dysponujemy zapleczem pomiarowym potrzebnym do oceny parametrów pracy,
+              spalania i bezpieczeństwa instalacji.
             </p>
           </motion.div>
 
           <motion.figure
-            className="w-full max-w-[420px] overflow-hidden rounded-xl border border-white/10 bg-white/[0.05] shadow-2xl lg:justify-self-end"
+            className="mx-auto w-full max-w-[280px] overflow-hidden rounded-xl border border-white/10 bg-white/[0.05] shadow-2xl sm:max-w-[300px] lg:mx-0 lg:justify-self-end"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
             <img
-              src={combustionAnalysis}
-              alt="Analizator spalin podczas kontrolnego pomiaru parametrów spalania"
-              className="aspect-[3/2] w-full object-cover"
-              width={1200}
-              height={800}
+              src={technicianMaintenance}
+              alt="Technik RES-SERWIS podczas pracy przy urządzeniu grzewczym"
+              className="aspect-[4/5] w-full object-cover object-center"
+              width={787}
+              height={1400}
               loading="lazy"
             />
             <figcaption className="border-t border-white/10 px-4 py-3 text-xs uppercase tracking-[0.14em] text-white/55">
-              Kontrolne pomiary parametrów spalania
+              Serwis urządzenia w praktyce
             </figcaption>
           </motion.figure>
         </div>
 
-        <div className="mt-10 grid gap-4 md:grid-cols-3">
-          {qualifications.map((qualification, index) => (
-            <motion.article
-              key={qualification.title}
-              className="rounded-xl border border-white/10 bg-white/[0.06] p-6 backdrop-blur-sm"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.08 }}
-            >
-              <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-primary/15">
-                <qualification.icon className="h-5 w-5 text-primary" />
-              </div>
-              <h3 className="mt-5 font-heading text-lg font-semibold">{qualification.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-white/60">{qualification.description}</p>
-            </motion.article>
-          ))}
-        </div>
-
-        <div className="mt-12 grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
+        <div className="mt-10 grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
           <motion.div
             className="rounded-xl border border-white/10 bg-white/[0.04] p-6 md:p-8"
             initial={{ opacity: 0, y: 20 }}
@@ -109,7 +70,7 @@ const TrustSection = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">Wybrane referencje</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary-on-dark">Wybrane referencje</p>
             <h3 className="mt-3 font-heading text-2xl font-semibold">Podmioty, które korzystały z naszego wsparcia</h3>
             <div className="mt-6 grid gap-3 sm:grid-cols-2">
               {references.map((reference) => (
@@ -128,7 +89,7 @@ const TrustSection = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.08 }}
           >
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">Marki i technologie</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary-on-dark">Marki i technologie</p>
             <h3 className="mt-3 font-heading text-2xl font-semibold">Doświadczenie z urządzeniami wielu producentów</h3>
             <p className="mt-3 text-sm leading-relaxed text-white/60">
               Na przestrzeni lat firma zdobywała doświadczenie przy urządzeniach i rozwiązaniach następujących marek:
@@ -148,7 +109,7 @@ const TrustSection = () => {
             </p>
             <ScrollLink
               href="#contact"
-              className="mt-auto inline-flex items-center gap-2 pt-7 text-sm font-semibold text-primary transition-colors hover:text-primary/80"
+              className="mt-auto inline-flex items-center gap-2 pt-7 text-sm font-semibold text-primary-on-dark transition-colors hover:text-white"
             >
               Zapytaj o swoje urządzenie
               <ArrowRight className="h-4 w-4" />

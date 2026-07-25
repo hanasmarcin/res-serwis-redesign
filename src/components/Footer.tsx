@@ -5,7 +5,7 @@ const Footer = () => {
     <footer className="py-8 border-t border-border bg-muted/30">
       <div className="container px-4 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
         <p>© {new Date().getFullYear()} RES-SERWIS. Wszelkie prawa zastrzeżone.</p>
-        <div className="flex items-center gap-6">
+        <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 sm:gap-x-6">
           <ScrollLink href="#home" className="hover:text-foreground transition-colors">Strona główna</ScrollLink>
           <ScrollLink href="#about" className="hover:text-foreground transition-colors">O firmie</ScrollLink>
           <ScrollLink href="#services" className="hover:text-foreground transition-colors">Oferta</ScrollLink>
