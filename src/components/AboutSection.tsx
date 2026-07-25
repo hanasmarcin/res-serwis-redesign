@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Shield, Award, Users } from "lucide-react";
+import technicianImage from "@/assets/work/technician-service.jpg";
 
 const stats = [
   {
@@ -23,11 +24,11 @@ const AboutSection = () => {
   return (
     <section id="about" className="scroll-mt-24 md:scroll-mt-28 py-20 md:py-32 bg-background">
       <div className="container px-4">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <div className="grid items-center gap-10 lg:grid-cols-[1fr_auto] lg:gap-16">
           {/* Text */}
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
@@ -56,14 +57,39 @@ const AboutSection = () => {
             </p>
           </motion.div>
 
-          {/* Stats */}
+          {/* Team image */}
           <motion.div
-            className="grid sm:grid-cols-3 gap-6"
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            className="mx-auto w-full max-w-[300px] overflow-hidden rounded-xl border border-border bg-card shadow-lg lg:mx-0"
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
+            <img
+              src={technicianImage}
+              alt="Technik RES-SERWIS podczas diagnostyki instalacji grzewczej"
+              className="aspect-[16/17] w-full object-cover"
+              width={720}
+              height={765}
+              loading="lazy"
+            />
+            <div className="border-t border-border bg-card p-4">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">Serwis w praktyce</p>
+              <p className="mt-1 font-heading text-base font-semibold text-foreground">
+                Doświadczenie widoczne w pracy
+              </p>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Stats */}
+        <motion.div
+          className="mt-14 grid sm:grid-cols-3 gap-6"
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.15 }}
+        >
             {stats.map((stat, i) => (
               <motion.div
                 key={stat.label}
@@ -80,8 +106,7 @@ const AboutSection = () => {
                 </div>
               </motion.div>
             ))}
-          </motion.div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

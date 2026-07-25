@@ -8,6 +8,7 @@ const navLinks = [
   { label: "Strona główna", href: "#home" },
   { label: "O firmie", href: "#about" },
   { label: "Oferta", href: "#services" },
+  { label: "Realizacje", href: "#projects" },
   { label: "Kontakt", href: "#contact" },
 ];
 
@@ -49,14 +50,21 @@ const Navbar = () => {
         </div>
 
         {/* Mobile toggle */}
-        <button className="md:hidden text-foreground" onClick={() => setOpen(!open)}>
+        <button
+          type="button"
+          className="md:hidden text-foreground"
+          aria-label={open ? "Zamknij menu" : "Otwórz menu"}
+          aria-expanded={open}
+          aria-controls="mobile-navigation"
+          onClick={() => setOpen(!open)}
+        >
           {open ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
         </button>
       </div>
 
       {/* Mobile menu */}
       {open && (
-        <div className="md:hidden bg-card border-b border-border pb-4">
+        <div id="mobile-navigation" className="md:hidden bg-card border-b border-border pb-4">
           {navLinks.map((link) => (
             <ScrollLink
               key={link.href}

@@ -9,6 +9,7 @@ const Footer = () => {
           <ScrollLink href="#home" className="hover:text-foreground transition-colors">Strona główna</ScrollLink>
           <ScrollLink href="#about" className="hover:text-foreground transition-colors">O firmie</ScrollLink>
           <ScrollLink href="#services" className="hover:text-foreground transition-colors">Oferta</ScrollLink>
+          <ScrollLink href="#projects" className="hover:text-foreground transition-colors">Realizacje</ScrollLink>
           <ScrollLink href="#contact" className="hover:text-foreground transition-colors">Kontakt</ScrollLink>
         </div>
       </div>
