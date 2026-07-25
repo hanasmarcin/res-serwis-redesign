@@ -47,6 +47,7 @@ const AboutSection = () => {
               width={720}
               height={765}
               loading="lazy"
+              decoding="async"
             />
             <div className="border-t border-border bg-card p-4">
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">Serwis w praktyce</p>

@@ -1,0 +1,25 @@
+{
+  "name": "RES-SERWIS",
+  "short_name": "RES-SERWIS",
+  "description": "Serwis pomp ciepła i instalacji OZE w Olsztynie.",
+  "lang": "pl-PL",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f9f7f3",
+  "theme_color": "#d94f18",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any"
+    }
+  ]
+}

@@ -71,6 +71,7 @@ const ProjectsSection = () => {
                 width={1200}
                 height={800}
                 loading="lazy"
+                decoding="async"
               />
               <figcaption className="p-3 md:p-4">
                 <h3 className="font-heading text-sm font-semibold text-foreground md:text-base">{project.title}</h3>

@@ -17,7 +17,7 @@ const brands = ["Viessmann", "Dimplex", "Weishaupt", "Riello", "Giersch", "Epuro
 
 const TrustSection = () => {
   return (
-    <section className="relative overflow-hidden bg-foreground py-20 text-white md:py-28">
+    <section id="trust" className="scroll-mt-24 relative overflow-hidden bg-foreground py-20 text-white md:scroll-mt-28 md:py-28">
       <div className="absolute -right-24 top-16 h-72 w-72 rounded-full bg-primary/15 blur-3xl" />
       <div className="container relative px-4">
         <div className="grid items-center gap-8 lg:grid-cols-[1fr_auto] lg:gap-14">
@@ -55,6 +55,7 @@ const TrustSection = () => {
               width={787}
               height={1400}
               loading="lazy"
+              decoding="async"
             />
             <figcaption className="border-t border-white/10 px-4 py-3 text-xs uppercase tracking-[0.14em] text-white/55">
               Serwis urządzenia w praktyce

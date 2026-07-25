@@ -15,6 +15,7 @@ const HeroSection = () => {
           width={1600}
           height={900}
           loading="eager"
+          decoding="async"
         />
         <div className="absolute inset-0 bg-black/50" />
         <div className="absolute inset-0" style={{ background: "var(--hero-overlay)" }} />
