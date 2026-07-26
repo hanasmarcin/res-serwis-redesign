@@ -1,0 +1,64 @@
+name: Deploy GitHub Pages preview
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build client for the repository subpath
+        run: npx vite build --base=/res-serwis-redesign/
+
+      - name: Build server renderer
+        run: npx vite build --base=/res-serwis-redesign/ --ssr src/entry-server.tsx --outDir dist-ssr
+
+      - name: Prerender and prepare noindex preview
+        run: |
+          node scripts/prerender.mjs
+          node scripts/prepare-pages-preview.mjs
+          node scripts/validate-pages-preview.mjs
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
