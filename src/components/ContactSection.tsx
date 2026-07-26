@@ -24,11 +24,6 @@ const contactItems: ContactItem[] = [
         label: "+48 502 328 185",
         href: "tel:+48502328185",
       },
-      {
-        accessibleLabel: "telefon stacjonarny: 89 526 05 18",
-        label: "89 526 05 18",
-        href: "tel:+48895260518",
-      },
     ],
   },
   {
@@ -38,10 +33,6 @@ const contactItems: ContactItem[] = [
       {
         label: "info@res-serwis.pl",
         href: "mailto:info@res-serwis.pl",
-      },
-      {
-        label: "www.res-serwis.pl",
-        href: "/",
       },
     ],
   },
@@ -84,9 +75,9 @@ const ContactSection = () => {
             {contactItems.map((item) => (
               <article
                 key={item.title}
-                className="h-full rounded-lg border border-border bg-card p-8 text-center shadow-sm"
+                className="h-full rounded-lg border border-border bg-card p-6 text-center shadow-sm md:p-7"
               >
-                <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-primary/10">
+                <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
                   <item.icon className="h-6 w-6 text-primary" aria-hidden="true" />
                 </div>
                 <h3 className="font-heading font-semibold text-foreground mb-2">{item.title}</h3>

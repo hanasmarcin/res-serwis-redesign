@@ -18,18 +18,12 @@ describe("homepage", () => {
       "href",
       "tel:+48502328185",
     );
-    expect(screen.getByRole("link", { name: /telefon stacjonarny/i })).toHaveAttribute(
-      "href",
-      "tel:+48895260518",
-    );
     expect(screen.getByRole("link", { name: "info@res-serwis.pl" })).toHaveAttribute(
       "href",
       "mailto:info@res-serwis.pl",
     );
-    expect(screen.getByRole("link", { name: "www.res-serwis.pl" })).toHaveAttribute(
-      "href",
-      "/",
-    );
+    expect(screen.queryByRole("link", { name: /telefon stacjonarny/i })).not.toBeInTheDocument();
+    expect(screen.queryByRole("link", { name: "www.res-serwis.pl" })).not.toBeInTheDocument();
     expect(
       screen.getByRole("link", {
         name: "ul. Bydgoska 3B, 10-243 Olsztyn, Polska",

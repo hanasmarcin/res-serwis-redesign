@@ -14,14 +14,12 @@ test("renders complete, indexable content with correct contact destinations", as
     "href",
     "tel:+48502328185",
   );
-  await expect(page.getByRole("link", { name: /telefon stacjonarny/i })).toHaveAttribute(
-    "href",
-    "tel:+48895260518",
-  );
   await expect(page.getByRole("link", { name: "info@res-serwis.pl" })).toHaveAttribute(
     "href",
     "mailto:info@res-serwis.pl",
   );
+  await expect(page.getByRole("link", { name: /telefon stacjonarny/i })).toHaveCount(0);
+  await expect(page.getByRole("link", { name: "www.res-serwis.pl" })).toHaveCount(0);
   await expect(
     page.getByRole("link", {
       name: "ul. Bydgoska 3B, 10-243 Olsztyn, Polska",

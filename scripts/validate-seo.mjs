@@ -35,9 +35,17 @@ requirePattern(
 );
 requirePattern(/<main id="main-content" tabindex="-1">/i, "The main landmark and focus target are missing.");
 requirePattern(/href="#main-content"[\s\S]+Przejdź do treści/i, "The skip link is missing.");
-requirePattern(/href="tel:\+48895260518"/i, "The landline contact action is missing.");
+requirePattern(/href="tel:\+48502328185"/i, "The mobile contact action is missing.");
 requirePattern(/type="image\/avif"/i, "Responsive AVIF image sources are missing.");
 requirePattern(/type="image\/webp"/i, "Responsive WebP image sources are missing.");
+
+if (html.includes("tel:+48895260518") || html.includes("+48 89 526 05 18")) {
+  errors.push("The retired landline number must not appear in production HTML.");
+}
+
+if (/<div id="root">[\s\S]+>www\.res-serwis\.pl<\/a>[\s\S]+<\/div>/i.test(html)) {
+  errors.push("The website link must not appear in the visible contact content.");
+}
 
 if (html.includes("fonts.googleapis.com") || html.includes("fonts.gstatic.com")) {
   errors.push("Production HTML must use self-hosted fonts.");
