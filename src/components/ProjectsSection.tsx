@@ -1,30 +1,52 @@
-import { motion } from "framer-motion";
-import boilerRoom from "@/assets/work/boiler-room.jpg";
-import heatPumpRoom from "@/assets/work/heat-pump-room.jpg";
-import solarCollectors from "@/assets/work/solar-collectors.jpg";
-import systemDiagnostics from "@/assets/work/system-diagnostics.jpg";
+import boilerAvif400 from "@/assets/generated/boiler-room-400.avif";
+import boilerAvif800 from "@/assets/generated/boiler-room-800.avif";
+import boilerWebp400 from "@/assets/generated/boiler-room-400.webp";
+import boilerWebp800 from "@/assets/generated/boiler-room-800.webp";
+import heatPumpAvif400 from "@/assets/generated/heat-pump-room-400.avif";
+import heatPumpAvif800 from "@/assets/generated/heat-pump-room-800.avif";
+import heatPumpWebp400 from "@/assets/generated/heat-pump-room-400.webp";
+import heatPumpWebp800 from "@/assets/generated/heat-pump-room-800.webp";
+import solarAvif400 from "@/assets/generated/solar-collectors-400.avif";
+import solarAvif800 from "@/assets/generated/solar-collectors-800.avif";
+import solarWebp400 from "@/assets/generated/solar-collectors-400.webp";
+import solarWebp800 from "@/assets/generated/solar-collectors-800.webp";
+import diagnosticsAvif400 from "@/assets/generated/system-diagnostics-400.avif";
+import diagnosticsAvif800 from "@/assets/generated/system-diagnostics-800.avif";
+import diagnosticsWebp400 from "@/assets/generated/system-diagnostics-400.webp";
+import diagnosticsWebp800 from "@/assets/generated/system-diagnostics-800.webp";
+
+const projectImageSizes =
+  "(min-width: 1400px) 335px, (min-width: 768px) calc(25vw - 2rem), calc(50vw - 1.5rem)";
 
 const projects = [
   {
-    image: boilerRoom,
+    avif: `${boilerAvif400} 400w, ${boilerAvif800} 800w`,
+    webp: `${boilerWebp400} 400w, ${boilerWebp800} 800w`,
+    fallback: boilerWebp800,
     title: "Serwis kotłowni",
     description: "Diagnostyka i obsługa rozbudowanych układów grzewczych",
     alt: "Kotłownia z urządzeniami grzewczymi i instalacją rurową",
   },
   {
-    image: systemDiagnostics,
+    avif: `${diagnosticsAvif400} 400w, ${diagnosticsAvif800} 800w`,
+    webp: `${diagnosticsWebp400} 400w, ${diagnosticsWebp800} 800w`,
+    fallback: diagnosticsWebp800,
     title: "Diagnostyka układu",
     description: "Kontrola parametrów pracy instalacji",
     alt: "Ekran diagnostyczny przedstawiający parametry obiegów grzewczych",
   },
   {
-    image: solarCollectors,
+    avif: `${solarAvif400} 400w, ${solarAvif800} 800w`,
+    webp: `${solarWebp400} 400w, ${solarWebp800} 800w`,
+    fallback: solarWebp800,
     title: "Instalacje solarne",
     description: "Przeglądy i obsługa kolektorów słonecznych",
     alt: "Rzędy kolektorów słonecznych na dachu budynku",
   },
   {
-    image: heatPumpRoom,
+    avif: `${heatPumpAvif400} 400w, ${heatPumpAvif800} 800w`,
+    webp: `${heatPumpWebp400} 400w, ${heatPumpWebp800} 800w`,
+    fallback: heatPumpWebp800,
     title: "Układy pomp ciepła",
     description: "Serwis urządzeń w instalacjach wielomodułowych",
     alt: "Pomieszczenie techniczne z kilkoma jednostkami pomp ciepła",
@@ -33,15 +55,13 @@ const projects = [
 
 const ProjectsSection = () => {
   return (
-    <section id="projects" className="scroll-mt-24 bg-muted/50 py-16 md:scroll-mt-28 md:py-24">
+    <section
+      id="projects"
+      tabIndex={-1}
+      className="scroll-mt-24 bg-muted/50 py-16 md:scroll-mt-28 md:py-24"
+    >
       <div className="container px-4">
-        <motion.div
-          className="mb-10 max-w-3xl"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-        >
+        <div className="mb-10 max-w-3xl">
           <p className="mb-3 font-heading text-sm font-semibold uppercase tracking-[0.15em] text-primary">
             Realizacje
           </p>
@@ -52,34 +72,34 @@ const ProjectsSection = () => {
             Każda instalacja wymaga uważnej diagnostyki i rozwiązań dopasowanych do warunków technicznych.
             Pokazujemy wybrane realizacje i codzienną pracę naszego serwisu.
           </p>
-        </motion.div>
+        </div>
 
         <div className="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-5">
-          {projects.map((project, index) => (
-            <motion.figure
+          {projects.map((project) => (
+            <figure
               key={project.title}
               className="group overflow-hidden rounded-lg border border-border bg-card shadow-sm"
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.08 }}
             >
-              <img
-                src={project.image}
-                alt={project.alt}
-                className="aspect-[3/2] w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-                width={1200}
-                height={800}
-                loading="lazy"
-                decoding="async"
-              />
+              <picture>
+                <source type="image/avif" srcSet={project.avif} sizes={projectImageSizes} />
+                <source type="image/webp" srcSet={project.webp} sizes={projectImageSizes} />
+                <img
+                  src={project.fallback}
+                  alt={project.alt}
+                  className="aspect-[3/2] w-full object-cover transition-transform duration-500 motion-reduce:transition-none group-hover:scale-[1.03] motion-reduce:group-hover:scale-100"
+                  width={800}
+                  height={533}
+                  loading="lazy"
+                  decoding="async"
+                />
+              </picture>
               <figcaption className="p-3 md:p-4">
                 <h3 className="font-heading text-sm font-semibold text-foreground md:text-base">{project.title}</h3>
                 <p className="mt-1 hidden text-xs leading-relaxed text-muted-foreground lg:block">
                   {project.description}
                 </p>
               </figcaption>
-            </motion.figure>
+            </figure>
           ))}
         </div>
       </div>

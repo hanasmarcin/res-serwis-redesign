@@ -13,13 +13,21 @@ const Index = () => {
 
   return (
     <div className="min-h-screen">
+      <a
+        href="#main-content"
+        className="fixed left-4 top-3 z-[60] -translate-y-24 rounded-md bg-foreground px-4 py-3 text-sm font-semibold text-background shadow-lg transition-transform focus:translate-y-0"
+      >
+        Przejdź do treści
+      </a>
       <Navbar />
-      <HeroSection />
-      <AboutSection />
-      <ServicesSection />
-      <TrustSection />
-      <ProjectsSection />
-      <ContactSection />
+      <main id="main-content" tabIndex={-1}>
+        <HeroSection />
+        <AboutSection />
+        <ServicesSection />
+        <TrustSection />
+        <ProjectsSection />
+        <ContactSection />
+      </main>
       <Footer />
     </div>
   );

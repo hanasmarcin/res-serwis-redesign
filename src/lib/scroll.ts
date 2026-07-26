@@ -23,9 +23,23 @@ const getScrollTopForHash = (hash: string) => {
   return Math.max(0, window.scrollY + target.getBoundingClientRect().top - getHeaderOffset());
 };
 
+const focusHashTarget = (hash: string) => {
+  const id = hash.replace(/^#/, "");
+  const target = document.getElementById(id);
+
+  if (!target) {
+    return;
+  }
+
+  target.focus({ preventScroll: true });
+};
+
 export const scrollToHash = (
   hash: string,
-  { updateHistory = true }: { updateHistory?: boolean } = {},
+  {
+    focusTarget = true,
+    updateHistory = true,
+  }: { focusTarget?: boolean; updateHistory?: boolean } = {},
 ) => {
   if (!hash.startsWith("#")) {
     return false;
@@ -51,6 +65,9 @@ export const scrollToHash = (
 
   if (Math.abs(distance) < 2 || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
     window.scrollTo({ top: nextTop });
+    if (focusTarget) {
+      focusHashTarget(hash);
+    }
     return true;
   }
 
@@ -74,6 +91,9 @@ export const scrollToHash = (
     }
 
     activeAnimationFrame = 0;
+    if (focusTarget) {
+      focusHashTarget(hash);
+    }
   };
 
   activeAnimationFrame = requestAnimationFrame(step);

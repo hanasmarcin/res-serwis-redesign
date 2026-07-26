@@ -1,5 +1,6 @@
-import { access, readFile } from "node:fs/promises";
+import { access, readFile, readdir } from "node:fs/promises";
 import { resolve } from "node:path";
+import sharp from "sharp";
 
 const rootDirectory = resolve(import.meta.dirname, "..");
 const outputDirectory = resolve(rootDirectory, "dist");
@@ -24,6 +25,19 @@ requirePattern(/<meta name="twitter:card" content="summary_large_image"/i, "The 
 requirePattern(/<script type="application\/ld\+json">/i, "JSON-LD structured data is missing.");
 requirePattern(/"@type": "LocalBusiness"/i, "LocalBusiness structured data is missing.");
 requirePattern(/<div id="root">[\s\S]+Serwis i diagnostyka[\s\S]+<\/div>/i, "The main content was not prerendered.");
+requirePattern(/<main id="main-content" tabindex="-1">/i, "The main landmark and focus target are missing.");
+requirePattern(/href="#main-content"[\s\S]+Przejdź do treści/i, "The skip link is missing.");
+requirePattern(/href="tel:\+48895260518"/i, "The landline contact action is missing.");
+requirePattern(/type="image\/avif"/i, "Responsive AVIF image sources are missing.");
+requirePattern(/type="image\/webp"/i, "Responsive WebP image sources are missing.");
+
+if (html.includes("fonts.googleapis.com") || html.includes("fonts.gstatic.com")) {
+  errors.push("Production HTML must use self-hosted fonts.");
+}
+
+if (/style="[^"]*opacity:\s*0/i.test(html)) {
+  errors.push("Prerendered content must not be hidden at first paint.");
+}
 
 const h1Count = (html.match(/<h1\b/gi) ?? []).length;
 if (h1Count !== 1) {
@@ -69,6 +83,37 @@ if (!robots.includes("Sitemap: https://www.res-serwis.pl/sitemap.xml")) {
 const sitemap = await readFile(resolve(outputDirectory, "sitemap.xml"), "utf8");
 if (!sitemap.includes("<loc>https://www.res-serwis.pl/</loc>")) {
   errors.push("sitemap.xml does not include the canonical homepage.");
+}
+
+const notFoundHtml = await readFile(resolve(outputDirectory, "404.html"), "utf8");
+if (!notFoundHtml.includes("Nie znaleźliśmy tej strony.")) {
+  errors.push("The static 404 page must use the site's Polish language.");
+}
+
+const manifest = JSON.parse(
+  await readFile(resolve(outputDirectory, "site.webmanifest"), "utf8"),
+);
+const manifestIcon = manifest.icons.find((icon) => icon.src === "/icon-512.jpg");
+const iconMetadata = await sharp(resolve(outputDirectory, "icon-512.jpg")).metadata();
+
+if (
+  manifestIcon?.sizes !== "512x512" ||
+  iconMetadata.width !== 512 ||
+  iconMetadata.height !== 512
+) {
+  errors.push("The 512px manifest icon declaration and image dimensions must agree.");
+}
+
+const assetFilenames = await readdir(resolve(outputDirectory, "assets"));
+const imageFilenames = assetFilenames.filter((filename) =>
+  /\.(?:avif|jpe?g|png|webp)$/i.test(filename),
+);
+
+for (const filename of imageFilenames) {
+  const metadata = await sharp(resolve(outputDirectory, "assets", filename)).metadata();
+  if (metadata.exif || metadata.iptc || metadata.xmp) {
+    errors.push(`Production image metadata was not stripped: dist/assets/${filename}`);
+  }
 }
 
 if (errors.length > 0) {

@@ -72,6 +72,8 @@ that product decision changes later.
 ## Performance and monitoring
 
 - [ ] Run PageSpeed Insights against the deployed mobile and desktop pages.
+- [ ] Confirm mobile Lighthouse performance is at least 95 and accessibility,
+      best-practices, and SEO scores are 100 before launch.
 - [ ] Check Search Console Core Web Vitals after enough field data accumulates.
 - [ ] Verify that HTML, CSS, JavaScript, fonts, and images use compression and
       appropriate cache headers in production.

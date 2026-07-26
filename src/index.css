@@ -13,7 +13,7 @@
     --popover: 0 0% 100%;
     --popover-foreground: 210 15% 20%;
 
-    --primary: 18 85% 50%;
+    --primary: 18 85% 40%;
     --primary-foreground: 0 0% 100%;
     --primary-on-dark: 18 100% 80%;
 
@@ -21,7 +21,7 @@
     --secondary-foreground: 0 0% 100%;
 
     --muted: 30 15% 93%;
-    --muted-foreground: 210 10% 46%;
+    --muted-foreground: 210 10% 44%;
 
     --accent: 8 70% 45%;
     --accent-foreground: 0 0% 100%;
@@ -37,8 +37,8 @@
 
     --hero-overlay: linear-gradient(135deg, hsla(210, 20%, 15%, 0.85), hsla(18, 40%, 20%, 0.7));
 
-    --font-heading: 'Space Grotesk', sans-serif;
-    --font-body: 'DM Sans', sans-serif;
+    --font-heading: 'Space Grotesk Variable', system-ui, sans-serif;
+    --font-body: 'DM Sans Variable', system-ui, sans-serif;
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -57,7 +57,7 @@
     --card-foreground: 30 15% 93%;
     --popover: 210 18% 12%;
     --popover-foreground: 30 15% 93%;
-    --primary: 18 85% 50%;
+    --primary: 18 85% 52%;
     --primary-foreground: 0 0% 100%;
     --primary-on-dark: 18 100% 80%;
     --secondary: 210 12% 30%;
@@ -83,6 +83,21 @@
 }
 
 @layer components {
+  .no-js [data-menu-toggle] {
+    display: none;
+  }
+
+  [data-menu-toggle][aria-expanded="false"] .menu-icon-close,
+  [data-menu-toggle][aria-expanded="true"] .menu-icon-open {
+    display: none;
+  }
+
+  @media (max-width: 767px) {
+    .no-js #mobile-navigation[hidden] {
+      display: block !important;
+    }
+  }
+
   .hero-service-image {
     object-position: clamp(23%, calc(2.3% + 6.46vw), 85%) center;
   }
@@ -95,21 +110,39 @@
 }
 
 @layer base {
-  .no-js [style*="opacity: 0"] {
-    opacity: 1 !important;
-    transform: none !important;
-  }
-
   * {
     @apply border-border;
+  }
+
+  html {
+    color-scheme: light;
   }
 
   body {
     @apply bg-background text-foreground;
     font-family: var(--font-body);
+    margin: 0;
+    min-width: 320px;
+    text-rendering: optimizeLegibility;
   }
 
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-heading);
+  }
+
+  section[tabindex="-1"]:focus,
+  main[tabindex="-1"]:focus {
+    outline: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      scroll-behavior: auto !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 }

@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import {
   ArrowUpRight,
   ChartNoAxesCombined,
@@ -10,7 +9,6 @@ import {
   Wrench,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
-import { Button } from "@/components/ui/button";
 
 type Service = {
   icon: LucideIcon;
@@ -98,15 +96,13 @@ const services: Service[] = [
 
 const ServicesSection = () => {
   return (
-    <section id="services" className="scroll-mt-24 md:scroll-mt-28 py-20 md:py-32 bg-muted/50">
+    <section
+      id="services"
+      tabIndex={-1}
+      className="scroll-mt-24 bg-muted/50 py-20 md:scroll-mt-28 md:py-32"
+    >
       <div className="container px-4">
-        <motion.div
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-        >
+        <div className="mb-16 text-center">
           <p className="text-primary font-heading font-semibold text-sm uppercase tracking-[0.15em] mb-3">
             Oferta
           </p>
@@ -117,19 +113,15 @@ const ServicesSection = () => {
             Oferujemy usługi dla klientów indywidualnych, inwestorów, firm instalacyjnych i projektantów.
             Poniżej przedstawiamy najczęstsze prace realizowane przez nasz serwis.
           </p>
-        </motion.div>
+        </div>
 
         <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-          {services.map((service, i) => (
-            <motion.article
+          {services.map((service) => (
+            <article
               key={service.title}
               className={`flex h-full flex-col rounded-xl bg-card p-6 shadow-sm md:p-7 ${
                 service.featured ? "border-2 border-primary/40" : "border border-border"
               }`}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.07 }}
             >
               <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
                 <service.icon className="h-6 w-6 text-primary" />
@@ -155,15 +147,18 @@ const ServicesSection = () => {
               )}
               {service.href && service.cta && (
                 <div className="mt-auto pt-6">
-                  <Button asChild size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90">
-                    <a href={service.href} target="_blank" rel="noopener noreferrer">
-                      {service.cta}
-                      <ArrowUpRight className="ml-2 h-4 w-4" />
-                    </a>
-                  </Button>
+                  <a
+                    href={service.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex min-h-11 items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground shadow-sm transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                  >
+                    {service.cta}
+                    <ArrowUpRight className="ml-2 h-4 w-4" aria-hidden="true" />
+                  </a>
                 </div>
               )}
-            </motion.article>
+            </article>
           ))}
         </div>
       </div>

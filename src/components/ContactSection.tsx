@@ -1,38 +1,72 @@
-import { motion } from "framer-motion";
 import { Phone, Mail, MapPin } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 
-const contactItems = [
+type ContactAction = {
+  accessibleLabel?: string;
+  label: string;
+  href: string;
+  external?: boolean;
+};
+
+type ContactItem = {
+  icon: LucideIcon;
+  title: string;
+  actions: ContactAction[];
+};
+
+const contactItems: ContactItem[] = [
   {
     icon: Phone,
     title: "Telefon",
-    lines: ["telefon komórkowy: +48 502 328 185", "telefon stacjonarny: 89 526 05 18"],
-    href: "tel:+48502328185",
+    actions: [
+      {
+        accessibleLabel: "telefon komórkowy: +48 502 328 185",
+        label: "+48 502 328 185",
+        href: "tel:+48502328185",
+      },
+      {
+        accessibleLabel: "telefon stacjonarny: 89 526 05 18",
+        label: "89 526 05 18",
+        href: "tel:+48895260518",
+      },
+    ],
   },
   {
     icon: Mail,
     title: "E-mail",
-    lines: ["info@res-serwis.pl", "www.res-serwis.pl"],
-    href: "mailto:info@res-serwis.pl",
+    actions: [
+      {
+        label: "info@res-serwis.pl",
+        href: "mailto:info@res-serwis.pl",
+      },
+      {
+        label: "www.res-serwis.pl",
+        href: "/",
+      },
+    ],
   },
   {
     icon: MapPin,
     title: "Adres",
-    lines: ["ul. Jagiellońska 57B/16", "10-283 Olsztyn"],
-    href: "https://maps.google.com/?q=Jagiellońska+57B+Olsztyn",
+    actions: [
+      {
+        label: "ul. Jagiellońska 57B/16, 10-283 Olsztyn",
+        href: "https://www.google.com/maps/search/?api=1&query=Jagiello%C5%84ska+57B%2F16%2C+10-283+Olsztyn",
+        external: true,
+      },
+    ],
   },
 ];
 
 const ContactSection = () => {
   return (
-    <section id="contact" className="scroll-mt-24 md:scroll-mt-28 py-20 md:py-32 bg-background">
+    <section
+      id="contact"
+      tabIndex={-1}
+      className="scroll-mt-24 bg-background py-20 md:scroll-mt-28 md:py-32"
+    >
       <div className="container px-4">
-        <motion.div
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-        >
+        <div className="mb-16 text-center">
           <p className="text-primary font-heading font-semibold text-sm uppercase tracking-[0.15em] mb-3">
             Kontakt
           </p>
@@ -43,35 +77,36 @@ const ContactSection = () => {
             Jeśli potrzebujesz serwisu, wsparcia technicznego, doradztwa lub informacji o urządzeniach OZE,
             zapraszamy do kontaktu.
           </p>
-        </motion.div>
+        </div>
 
         <div className="max-w-5xl mx-auto">
           <div className="grid md:grid-cols-3 gap-8">
-            {contactItems.map((item, i) => (
-              <motion.a
+            {contactItems.map((item) => (
+              <article
                 key={item.title}
-                href={item.href}
-                target={item.icon === MapPin ? "_blank" : undefined}
-                rel={item.icon === MapPin ? "noopener noreferrer" : undefined}
-                className="block group"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
+                className="h-full rounded-lg border border-border bg-card p-8 text-center shadow-sm"
               >
-                <div className="h-full rounded-lg border border-border bg-card p-8 text-center shadow-sm transition-all duration-200 group-hover:-translate-y-1 group-hover:border-primary/30 group-hover:shadow-lg">
-                  <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4 transition-colors group-hover:bg-primary/20">
-                    <item.icon className="w-6 h-6 text-primary" />
-                  </div>
-                  <h3 className="font-heading font-semibold text-foreground mb-2">{item.title}</h3>
-                  {item.lines.map((line) => (
-                    <p key={line} className="text-muted-foreground text-sm">{line}</p>
+                <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-primary/10">
+                  <item.icon className="h-6 w-6 text-primary" aria-hidden="true" />
+                </div>
+                <h3 className="font-heading font-semibold text-foreground mb-2">{item.title}</h3>
+                <div className="flex flex-col items-center gap-2">
+                  {item.actions.map((action) => (
+                    <a
+                      key={action.href}
+                      href={action.href}
+                      aria-label={action.accessibleLabel}
+                      target={action.external ? "_blank" : undefined}
+                      rel={action.external ? "noopener noreferrer" : undefined}
+                      className="inline-flex min-h-11 items-center rounded-md px-2 text-sm font-medium text-foreground underline decoration-primary/50 decoration-2 underline-offset-4 transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                    >
+                      {action.label}
+                    </a>
                   ))}
                 </div>
-              </motion.a>
+              </article>
             ))}
           </div>
-
         </div>
       </div>
     </section>

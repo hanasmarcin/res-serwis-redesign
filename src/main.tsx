@@ -1,13 +1,20 @@
-import { createRoot, hydrateRoot } from "react-dom/client";
-import App from "./App.tsx";
+import "@fontsource-variable/dm-sans";
+import "@fontsource-variable/space-grotesk";
 import "./index.css";
+import { setupStaticEnhancements } from "@/lib/enhance";
 
 document.documentElement.classList.replace("no-js", "js");
 
-const rootElement = document.getElementById("root")!;
+const rootElement = document.getElementById("root");
+
+if (!rootElement) {
+  throw new Error("Application root element was not found.");
+}
 
 if (rootElement.hasChildNodes()) {
-  hydrateRoot(rootElement, <App />);
+  setupStaticEnhancements();
 } else {
-  createRoot(rootElement).render(<App />);
+  void import("./render-client").then(({ renderClient }) => {
+    renderClient(rootElement);
+  });
 }

@@ -1,53 +1,65 @@
-Options -MultiViews
+Options -Indexes -MultiViews
 DirectoryIndex index.html
 ErrorDocument 404 /404.html
 
 <IfModule mod_rewrite.c>
   RewriteEngine On
 
+  # Map old indexed entry points directly to the secure canonical destination.
+  # Keeping these rules before the host redirect avoids a two-hop redirect chain.
+  RewriteCond %{THE_REQUEST} \s/+index\.php [NC]
+  RewriteCond %{QUERY_STRING} (^|&)main=1(&|$) [NC]
+  RewriteCond %{QUERY_STRING} (^|&)sub=(2|3|4)(&|$) [NC]
+  RewriteRule ^index\.php$ https://www.res-serwis.pl/#trust [R=301,L,NE,QSD]
+
+  RewriteCond %{THE_REQUEST} \s/+index\.php [NC]
+  RewriteCond %{QUERY_STRING} (^|&)main=1(&|$) [NC]
+  RewriteRule ^index\.php$ https://www.res-serwis.pl/#about [R=301,L,NE,QSD]
+
+  RewriteCond %{THE_REQUEST} \s/+index\.php [NC]
+  RewriteCond %{QUERY_STRING} (^|&)main=2(&|$) [NC]
+  RewriteRule ^index\.php$ https://www.res-serwis.pl/#services [R=301,L,NE,QSD]
+
+  RewriteCond %{THE_REQUEST} \s/+index\.php [NC]
+  RewriteCond %{QUERY_STRING} (^|&)main=3(&|$) [NC]
+  RewriteRule ^index\.php$ https://www.res-serwis.pl/#projects [R=301,L,NE,QSD]
+
+  RewriteCond %{THE_REQUEST} \s/+index\.php [NC]
+  RewriteCond %{QUERY_STRING} (^|&)main=5(&|$) [NC]
+  RewriteRule ^index\.php$ https://www.res-serwis.pl/#contact [R=301,L,NE,QSD]
+
+  RewriteCond %{THE_REQUEST} \s/+index\.php(?:[?\s]) [NC]
+  RewriteRule ^index\.php$ https://www.res-serwis.pl/ [R=301,L,NE,QSD]
+
   # Use one secure canonical host. Enable only after TLS covers both hostnames.
   RewriteCond %{HTTPS} !=on [OR]
   RewriteCond %{HTTP_HOST} !^www\.res-serwis\.pl$ [NC]
   RewriteRule ^ https://www.res-serwis.pl%{REQUEST_URI} [R=301,L,NE]
-
-  # Preserve the old site's indexed entry points at the closest matching section.
-  RewriteCond %{THE_REQUEST} \s/+index\.php [NC]
-  RewriteCond %{QUERY_STRING} (^|&)main=1(&|$) [NC]
-  RewriteCond %{QUERY_STRING} (^|&)sub=(2|3|4)(&|$) [NC]
-  RewriteRule ^index\.php$ /#trust [R=301,L,NE,QSD]
-
-  RewriteCond %{THE_REQUEST} \s/+index\.php [NC]
-  RewriteCond %{QUERY_STRING} (^|&)main=1(&|$) [NC]
-  RewriteRule ^index\.php$ /#about [R=301,L,NE,QSD]
-
-  RewriteCond %{THE_REQUEST} \s/+index\.php [NC]
-  RewriteCond %{QUERY_STRING} (^|&)main=2(&|$) [NC]
-  RewriteRule ^index\.php$ /#services [R=301,L,NE,QSD]
-
-  RewriteCond %{THE_REQUEST} \s/+index\.php [NC]
-  RewriteCond %{QUERY_STRING} (^|&)main=3(&|$) [NC]
-  RewriteRule ^index\.php$ /#projects [R=301,L,NE,QSD]
-
-  RewriteCond %{THE_REQUEST} \s/+index\.php [NC]
-  RewriteCond %{QUERY_STRING} (^|&)main=5(&|$) [NC]
-  RewriteRule ^index\.php$ /#contact [R=301,L,NE,QSD]
-
-  RewriteCond %{THE_REQUEST} \s/+index\.php(?:[?\s]) [NC]
-  RewriteRule ^index\.php$ / [R=301,L,NE,QSD]
 </IfModule>
 
 <IfModule mod_headers.c>
+  Header always set Content-Security-Policy "default-src 'self'; base-uri 'self'; connect-src 'self'; font-src 'self'; form-action 'self'; frame-ancestors 'none'; img-src 'self' data:; object-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'"
+  Header always set Cross-Origin-Opener-Policy "same-origin"
+  Header always set X-Frame-Options "DENY"
   Header always set X-Content-Type-Options "nosniff"
   Header always set Referrer-Policy "strict-origin-when-cross-origin"
   Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
 
-  <FilesMatch "\.(?:css|js|jpg|jpeg|png|gif|webp|avif|svg|ico|woff2?)$">
+  <FilesMatch "\.(?:jpg|jpeg|png|gif|webp|avif|svg|ico)$">
+    Header set Cache-Control "public, max-age=86400, stale-while-revalidate=604800"
+  </FilesMatch>
+
+  <FilesMatch "-[A-Za-z0-9_-]{8}\.(?:css|js|jpg|jpeg|png|gif|webp|avif|svg|woff2?)$">
     Header set Cache-Control "public, max-age=31536000, immutable"
   </FilesMatch>
 
   <FilesMatch "\.(?:html|xml|txt|webmanifest)$">
     Header set Cache-Control "public, max-age=0, must-revalidate"
   </FilesMatch>
+</IfModule>
+
+<IfModule mod_brotli.c>
+  AddOutputFilterByType BROTLI_COMPRESS text/html text/plain text/css text/javascript application/javascript application/json application/ld+json application/xml image/svg+xml
 </IfModule>
 
 <IfModule mod_deflate.c>

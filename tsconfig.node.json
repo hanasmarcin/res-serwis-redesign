@@ -15,8 +15,15 @@
     /* Linting */
     "strict": true,
     "noUnusedLocals": false,
-    "noUnusedParameters": false,
+    "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["vite.config.ts"]
+  "include": [
+    "eslint.config.js",
+    "playwright.config.ts",
+    "postcss.config.js",
+    "tailwind.config.ts",
+    "vite.config.ts",
+    "vitest.config.ts"
+  ]
 }

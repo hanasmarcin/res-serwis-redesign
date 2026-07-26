@@ -10,7 +10,13 @@ lerna-debug.log*
 node_modules
 dist
 dist-ssr
+playwright-report
+test-results
+*.tsbuildinfo
 *.local
+
+# Private source photography is intentionally kept outside the repository.
+PRaca foto/
 
 # Editor directories and files
 .vscode/*
