@@ -30,6 +30,14 @@ describe("homepage", () => {
       "href",
       "/",
     );
+    expect(
+      screen.getByRole("link", {
+        name: "ul. Bydgoska 3B, 10-243 Olsztyn, Polska",
+      }),
+    ).toHaveAttribute(
+      "href",
+      "https://www.google.com/maps/search/?api=1&query=ul.+Bydgoska+3B%2C+10-243+Olsztyn%2C+Polska",
+    );
   });
 
   it("supports an accessible mobile-menu disclosure", async () => {

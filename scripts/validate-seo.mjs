@@ -24,7 +24,15 @@ requirePattern(/<meta property="og:image" content="https:\/\/www\.res-serwis\.pl
 requirePattern(/<meta name="twitter:card" content="summary_large_image"/i, "The X/Twitter card metadata is missing.");
 requirePattern(/<script type="application\/ld\+json">/i, "JSON-LD structured data is missing.");
 requirePattern(/"@type": "LocalBusiness"/i, "LocalBusiness structured data is missing.");
+requirePattern(
+  /"streetAddress": "ul\. Bydgoska 3B"[\s\S]+"postalCode": "10-243"[\s\S]+"addressLocality": "Olsztyn"[\s\S]+"addressCountry": "PL"/i,
+  "The LocalBusiness structured address is missing or incorrect.",
+);
 requirePattern(/<div id="root">[\s\S]+Serwis i diagnostyka[\s\S]+<\/div>/i, "The main content was not prerendered.");
+requirePattern(
+  /<div id="root">[\s\S]+ul\. Bydgoska 3B, 10-243 Olsztyn, Polska[\s\S]+<\/div>/i,
+  "The visible business address is missing or incorrect.",
+);
 requirePattern(/<main id="main-content" tabindex="-1">/i, "The main landmark and focus target are missing.");
 requirePattern(/href="#main-content"[\s\S]+Przejdź do treści/i, "The skip link is missing.");
 requirePattern(/href="tel:\+48895260518"/i, "The landline contact action is missing.");

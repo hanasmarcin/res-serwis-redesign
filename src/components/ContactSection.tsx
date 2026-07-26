@@ -50,8 +50,8 @@ const contactItems: ContactItem[] = [
     title: "Adres",
     actions: [
       {
-        label: "ul. Jagiellońska 57B/16, 10-283 Olsztyn",
-        href: "https://www.google.com/maps/search/?api=1&query=Jagiello%C5%84ska+57B%2F16%2C+10-283+Olsztyn",
+        label: "ul. Bydgoska 3B, 10-243 Olsztyn, Polska",
+        href: "https://www.google.com/maps/search/?api=1&query=ul.+Bydgoska+3B%2C+10-243+Olsztyn%2C+Polska",
         external: true,
       },
     ],
