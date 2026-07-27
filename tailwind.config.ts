@@ -15,7 +15,7 @@ export default {
     extend: {
       fontFamily: {
         heading: ['Space Grotesk Variable', 'system-ui', 'sans-serif'],
-        body: ['DM Sans Variable', 'system-ui', 'sans-serif'],
+        body: ['system-ui', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",

@@ -38,7 +38,7 @@
     --hero-overlay: linear-gradient(135deg, hsla(210, 20%, 15%, 0.85), hsla(18, 40%, 20%, 0.7));
 
     --font-heading: 'Space Grotesk Variable', system-ui, sans-serif;
-    --font-body: 'DM Sans Variable', system-ui, sans-serif;
+    --font-body: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;

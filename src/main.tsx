@@ -1,4 +1,3 @@
-import "@fontsource-variable/dm-sans";
 import "@fontsource-variable/space-grotesk";
 import "./index.css";
 import { setupStaticEnhancements } from "@/lib/enhance";

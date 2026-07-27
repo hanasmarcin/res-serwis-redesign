@@ -47,6 +47,35 @@ test("does not overflow horizontally", async ({ page }) => {
   expect(dimensions.scrollWidth).toBe(dimensions.clientWidth);
 });
 
+test("keeps the mobile hero clear of the header and centers its scroll cue", async ({
+  page,
+}, testInfo) => {
+  test.skip(!testInfo.project.name.startsWith("mobile"), "Mobile-only hero layout");
+
+  await page.setViewportSize({ width: 393, height: 600 });
+
+  const layout = await page.evaluate(() => {
+    const header = document.querySelector("nav")?.getBoundingClientRect();
+    const content = document.querySelector("[data-hero-content]")?.getBoundingClientRect();
+    const cue = document.querySelector("[data-hero-scroll-cue]")?.getBoundingClientRect();
+
+    if (!header || !content || !cue) {
+      return null;
+    }
+
+    return {
+      contentTop: content.top,
+      headerBottom: header.bottom,
+      cueCenter: cue.left + cue.width / 2,
+      viewportCenter: document.documentElement.clientWidth / 2,
+    };
+  });
+
+  expect(layout).not.toBeNull();
+  expect(layout!.contentTop).toBeGreaterThanOrEqual(layout!.headerBottom + 16);
+  expect(Math.abs(layout!.cueCenter - layout!.viewportCenter)).toBeLessThan(1);
+});
+
 test("mobile navigation closes with Escape and moves focus after navigation", async ({
   page,
 }, testInfo) => {

@@ -14,7 +14,7 @@ const HeroSection = () => {
     <section
       id="home"
       tabIndex={-1}
-      className="relative flex min-h-[100svh] items-center justify-center overflow-hidden"
+      className="relative box-border flex min-h-[100svh] items-center justify-center overflow-hidden pb-28 pt-24 md:py-24"
     >
       <div className="absolute inset-0">
         <picture className="block h-full w-full">
@@ -43,7 +43,10 @@ const HeroSection = () => {
         <div className="absolute inset-0" style={{ background: "var(--hero-overlay)" }} />
       </div>
 
-      <div className="container relative z-10 grid px-4 text-center text-white md:grid-cols-[0.85fr_1.15fr] md:text-left">
+      <div
+        data-hero-content
+        className="container relative z-10 grid px-4 text-center text-white md:grid-cols-[0.85fr_1.15fr] md:text-left"
+      >
         <div className="md:col-start-2">
           <p className="font-body text-sm md:text-base font-medium uppercase tracking-[0.18em] text-white/80 mb-5">
             RES-SERWIS ODNAWIALNE ŹRÓDŁA ENERGII
@@ -75,11 +78,14 @@ const HeroSection = () => {
         </div>
       </div>
 
-      <div className="absolute bottom-5 left-1/2 -translate-x-1/2 motion-safe:animate-bounce md:bottom-8">
+      <div
+        data-hero-scroll-cue
+        className="absolute bottom-5 left-1/2 flex -translate-x-1/2 md:bottom-8"
+      >
         <ScrollLink
           href="#about"
           aria-label="Przejdź do sekcji O firmie"
-          className="inline-flex h-11 w-11 items-center justify-center rounded-full text-white/70 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+          className="inline-flex h-11 w-11 items-center justify-center rounded-full text-white/70 transition-colors motion-safe:animate-bounce hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
         >
           <ArrowDown className="h-6 w-6" aria-hidden="true" />
         </ScrollLink>
