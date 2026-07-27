@@ -36,7 +36,7 @@ const Navbar = () => {
   return (
     <nav
       aria-label="Główna nawigacja"
-      className="fixed inset-x-0 top-0 z-50 border-b border-border bg-card/95 shadow-sm backdrop-blur-lg"
+      className="fixed inset-x-0 top-0 z-50 border-b border-border bg-card/95 shadow-sm backdrop-blur-lg before:pointer-events-none before:absolute before:inset-x-0 before:bottom-full before:h-[100vh] before:bg-card before:content-['']"
     >
       <div data-site-header-offset className="container flex items-center justify-between h-16 md:h-20">
         <ScrollLink

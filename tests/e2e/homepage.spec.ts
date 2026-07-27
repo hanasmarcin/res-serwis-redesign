@@ -47,7 +47,7 @@ test("does not overflow horizontally", async ({ page }) => {
   expect(dimensions.scrollWidth).toBe(dimensions.clientWidth);
 });
 
-test("keeps the mobile hero clear of the header and centers its scroll cue", async ({
+test("covers Safari's top gap, clears the mobile header, and centers the scroll cue", async ({
   page,
 }, testInfo) => {
   test.skip(!testInfo.project.name.startsWith("mobile"), "Mobile-only hero layout");
@@ -55,18 +55,23 @@ test("keeps the mobile hero clear of the header and centers its scroll cue", asy
   await page.setViewportSize({ width: 393, height: 600 });
 
   const layout = await page.evaluate(() => {
-    const header = document.querySelector("nav")?.getBoundingClientRect();
+    const headerElement = document.querySelector("nav");
+    const header = headerElement?.getBoundingClientRect();
     const content = document.querySelector("[data-hero-content]")?.getBoundingClientRect();
     const cue = document.querySelector("[data-hero-scroll-cue]")?.getBoundingClientRect();
 
-    if (!header || !content || !cue) {
+    if (!headerElement || !header || !content || !cue) {
       return null;
     }
+
+    const topCover = window.getComputedStyle(headerElement, "::before");
 
     return {
       contentTop: content.top,
       headerBottom: header.bottom,
       cueCenter: cue.left + cue.width / 2,
+      topCoverHeight: Number.parseFloat(topCover.height),
+      topCoverContent: topCover.content,
       viewportCenter: document.documentElement.clientWidth / 2,
     };
   });
@@ -74,6 +79,8 @@ test("keeps the mobile hero clear of the header and centers its scroll cue", asy
   expect(layout).not.toBeNull();
   expect(layout!.contentTop).toBeGreaterThanOrEqual(layout!.headerBottom + 16);
   expect(Math.abs(layout!.cueCenter - layout!.viewportCenter)).toBeLessThan(1);
+  expect(layout!.topCoverContent).not.toBe("none");
+  expect(layout!.topCoverHeight).toBeGreaterThanOrEqual(600);
 });
 
 test("mobile navigation closes with Escape and moves focus after navigation", async ({
