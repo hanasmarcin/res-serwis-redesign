@@ -1,51 +1,37 @@
 import { Phone, Mail, MapPin } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
-type ContactAction = {
-  accessibleLabel?: string;
-  label: string;
-  href: string;
-  external?: boolean;
-};
-
 type ContactItem = {
+  accessibleLabel: string;
+  external?: boolean;
+  href: string;
   icon: LucideIcon;
+  label: string;
   title: string;
-  actions: ContactAction[];
 };
 
 const contactItems: ContactItem[] = [
   {
+    accessibleLabel: "Zadzwoń pod numer +48 502 328 185",
+    href: "tel:+48502328185",
     icon: Phone,
+    label: "+48 502 328 185",
     title: "Telefon",
-    actions: [
-      {
-        accessibleLabel: "telefon komórkowy: +48 502 328 185",
-        label: "+48 502 328 185",
-        href: "tel:+48502328185",
-      },
-    ],
   },
   {
+    accessibleLabel: "Napisz wiadomość na info@res-serwis.pl",
+    href: "mailto:info@res-serwis.pl",
     icon: Mail,
+    label: "info@res-serwis.pl",
     title: "E-mail",
-    actions: [
-      {
-        label: "info@res-serwis.pl",
-        href: "mailto:info@res-serwis.pl",
-      },
-    ],
   },
   {
+    accessibleLabel: "Otwórz adres ul. Bydgoska 3B, 10-243 Olsztyn, Polska w Mapach Google",
+    external: true,
+    href: "https://www.google.com/maps/search/?api=1&query=ul.+Bydgoska+3B%2C+10-243+Olsztyn%2C+Polska",
     icon: MapPin,
+    label: "ul. Bydgoska 3B, 10-243 Olsztyn, Polska",
     title: "Adres",
-    actions: [
-      {
-        label: "ul. Bydgoska 3B, 10-243 Olsztyn, Polska",
-        href: "https://www.google.com/maps/search/?api=1&query=ul.+Bydgoska+3B%2C+10-243+Olsztyn%2C+Polska",
-        external: true,
-      },
-    ],
   },
 ];
 
@@ -73,29 +59,23 @@ const ContactSection = () => {
         <div className="max-w-5xl mx-auto">
           <div className="grid md:grid-cols-3 gap-8">
             {contactItems.map((item) => (
-              <article
+              <a
                 key={item.title}
-                className="h-full rounded-lg border border-border bg-card p-6 text-center shadow-sm md:p-7"
+                data-contact-card
+                href={item.href}
+                aria-label={item.accessibleLabel}
+                target={item.external ? "_blank" : undefined}
+                rel={item.external ? "noopener noreferrer" : undefined}
+                className="group flex h-full flex-col items-center rounded-lg border border-border bg-card p-6 text-center shadow-sm transition-[border-color,box-shadow,transform] hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 md:p-7"
               >
-                <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
+                <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 transition-colors group-hover:bg-primary/15">
                   <item.icon className="h-6 w-6 text-primary" aria-hidden="true" />
                 </div>
                 <h3 className="font-heading font-semibold text-foreground mb-2">{item.title}</h3>
-                <div className="flex flex-col items-center gap-2">
-                  {item.actions.map((action) => (
-                    <a
-                      key={action.href}
-                      href={action.href}
-                      aria-label={action.accessibleLabel}
-                      target={action.external ? "_blank" : undefined}
-                      rel={action.external ? "noopener noreferrer" : undefined}
-                      className="inline-flex min-h-11 items-center rounded-md px-2 text-sm font-medium text-foreground underline decoration-primary/50 decoration-2 underline-offset-4 transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-                    >
-                      {action.label}
-                    </a>
-                  ))}
-                </div>
-              </article>
+                <span className="flex min-h-11 items-center text-sm font-medium text-foreground underline decoration-primary/50 decoration-2 underline-offset-4 transition-colors group-hover:text-primary">
+                  {item.label}
+                </span>
+              </a>
             ))}
           </div>
         </div>

@@ -14,11 +14,11 @@ describe("homepage", () => {
     expect(screen.getByRole("navigation", { name: "Główna nawigacja" })).toBeInTheDocument();
     expect(screen.getByRole("navigation", { name: "Nawigacja w stopce" })).toBeInTheDocument();
 
-    expect(screen.getByRole("link", { name: /telefon komórkowy/i })).toHaveAttribute(
+    expect(screen.getByRole("link", { name: /zadzwoń pod numer/i })).toHaveAttribute(
       "href",
       "tel:+48502328185",
     );
-    expect(screen.getByRole("link", { name: "info@res-serwis.pl" })).toHaveAttribute(
+    expect(screen.getByRole("link", { name: /napisz wiadomość na info@res-serwis\.pl/i })).toHaveAttribute(
       "href",
       "mailto:info@res-serwis.pl",
     );
@@ -26,12 +26,13 @@ describe("homepage", () => {
     expect(screen.queryByRole("link", { name: "www.res-serwis.pl" })).not.toBeInTheDocument();
     expect(
       screen.getByRole("link", {
-        name: "ul. Bydgoska 3B, 10-243 Olsztyn, Polska",
+        name: /otwórz adres ul\. Bydgoska 3B, 10-243 Olsztyn, Polska/i,
       }),
     ).toHaveAttribute(
       "href",
       "https://www.google.com/maps/search/?api=1&query=ul.+Bydgoska+3B%2C+10-243+Olsztyn%2C+Polska",
     );
+    expect(document.querySelectorAll("a[data-contact-card]")).toHaveLength(3);
   });
 
   it("supports an accessible mobile-menu disclosure", async () => {

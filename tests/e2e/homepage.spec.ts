@@ -10,11 +10,13 @@ test("renders complete, indexable content with correct contact destinations", as
   await expect(page.locator('meta[name="description"]')).toHaveAttribute("content", /Olsztyna/);
   await expect(page.getByRole("main")).toBeVisible();
   await expect(page.getByRole("heading", { level: 1 })).toHaveText(/serwis OZE/);
-  await expect(page.getByRole("link", { name: /telefon komórkowy/i })).toHaveAttribute(
+  await expect(page.getByRole("link", { name: /zadzwoń pod numer/i })).toHaveAttribute(
     "href",
     "tel:+48502328185",
   );
-  await expect(page.getByRole("link", { name: "info@res-serwis.pl" })).toHaveAttribute(
+  await expect(
+    page.getByRole("link", { name: /napisz wiadomość na info@res-serwis\.pl/i }),
+  ).toHaveAttribute(
     "href",
     "mailto:info@res-serwis.pl",
   );
@@ -22,12 +24,13 @@ test("renders complete, indexable content with correct contact destinations", as
   await expect(page.getByRole("link", { name: "www.res-serwis.pl" })).toHaveCount(0);
   await expect(
     page.getByRole("link", {
-      name: "ul. Bydgoska 3B, 10-243 Olsztyn, Polska",
+      name: /otwórz adres ul\. Bydgoska 3B, 10-243 Olsztyn, Polska/i,
     }),
   ).toHaveAttribute(
     "href",
     "https://www.google.com/maps/search/?api=1&query=ul.+Bydgoska+3B%2C+10-243+Olsztyn%2C+Polska",
   );
+  await expect(page.locator("a[data-contact-card]")).toHaveCount(3);
 });
 
 test("has no detectable WCAG A or AA accessibility violations", async ({ page }) => {
@@ -69,6 +72,7 @@ test("covers Safari's top gap, clears the mobile header, and centers the scroll 
     return {
       contentTop: content.top,
       headerBottom: header.bottom,
+      headerBackground: window.getComputedStyle(headerElement).backgroundColor,
       cueCenter: cue.left + cue.width / 2,
       topCoverHeight: Number.parseFloat(topCover.height),
       topCoverContent: topCover.content,
@@ -78,6 +82,7 @@ test("covers Safari's top gap, clears the mobile header, and centers the scroll 
 
   expect(layout).not.toBeNull();
   expect(layout!.contentTop).toBeGreaterThanOrEqual(layout!.headerBottom + 16);
+  expect(layout!.headerBackground).toBe("rgb(255, 255, 255)");
   expect(Math.abs(layout!.cueCenter - layout!.viewportCenter)).toBeLessThan(1);
   expect(layout!.topCoverContent).not.toBe("none");
   expect(layout!.topCoverHeight).toBeGreaterThanOrEqual(600);
